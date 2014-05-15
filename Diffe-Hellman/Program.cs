@@ -9,24 +9,40 @@ namespace Diffe_Hellman
     {
         static void Main(string[] args)
         {
-            int a, b;
+            double privateA, privateB,publicA,publicB,secretA,secretB;
             ///prime number 
-            int p = 13;
+            int primeNumPub = 23;
             ///base
-            int g = 5;
+            int grupaNumPub = 5;
+            Random rnd = new Random();
+
+            int prim;
+            
             do
             {
-                Console.WriteLine("Alice enter your secret number \"a\" (1 to 16)");
-                a = ValidateReadNumber(Console.ReadLine());
-            } while (a < 0 || a > 17);
+               prim= rnd.Next(1, 100);
+                
+            } while (IsItPrime(prim));
+            do
+            {
+                Console.WriteLine("Alice enter your secret number \"a\" (1 to 16)-private key");
+                privateA = ValidateReadNumber(Console.ReadLine());
+            } while (privateA < 0 || privateA > 17);
 
 
             do
             {
-                Console.WriteLine("Bob enter your secret number \"b\" (1 to 16)");
-                b = ValidateReadNumber(Console.ReadLine());
-            } while (b < 0 || b > 17);
-
+                Console.WriteLine("Bob enter your secret number \"b\" (1 to 16)-private key");
+                privateB= ValidateReadNumber(Console.ReadLine());
+            } while (privateB < 0 || privateB > 17);
+            Console.WriteLine("Exchange of public keys");
+            publicA = NumeratePublicKey(primeNumPub, grupaNumPub, privateA);
+            publicB = NumeratePublicKey(primeNumPub, grupaNumPub, privateB);
+            Console.WriteLine("Alice get public key B = {0},Bob get public key A = {1}",publicB,publicA);
+            secretA = NumerateSsecret(primeNumPub, publicB, privateA);
+            secretB = NumerateSsecret(primeNumPub, publicA, privateB);
+            Console.WriteLine("Secret of Alice {0} and secret Bob {1}",secretA,secretB);
+            Console.ReadKey();
 
         }
 
@@ -46,14 +62,28 @@ namespace Diffe_Hellman
             return number;
         }
 
-        public static int NumerateBigChar(int primeNumber, int gBase, int exponent)
+        public static double NumeratePublicKey(double primeNumber, double gBase, double exponentPrivateKey)
         {
-            return Convert.ToInt32(Math.Pow(gBase, exponent)) % primeNumber;
+            return Convert.ToDouble(Math.Pow(gBase, exponentPrivateKey)) % primeNumber;
         }
 
-        public static int NumerateSsecret(int primeNumber, int bigChar, int exponent)
+        public static double NumerateSsecret(double primeNumber, double publicKeyTheOthes, double myPrivateKey)
         {
-            return Convert.ToInt32(Math.Pow(bigChar, exponent)) % primeNumber;
+            return Convert.ToDouble(Math.Pow(publicKeyTheOthes, myPrivateKey)) % primeNumber;
         }
+
+        public static bool IsItPrime(int value)
+        {
+            for (int i = 2; i < value; i++)
+            {
+                if ((value % i) == 0)
+                {
+                    return false;
+                }
+
+            }
+            return true;
+        }
+
     }
 }
