@@ -9,7 +9,7 @@ namespace Diffe_Hellman
     {
         static void Main(string[] args)
         {
-            double privateA=0, privateB,publicA,publicB,secretA,secretB;
+            double privateA = 0, privateB, publicA, publicB, secretA, secretB;
             ///prime number 
             int primeNumPub = 23;
             ///base
@@ -28,7 +28,7 @@ namespace Diffe_Hellman
                 if (errCount) { Console.WriteLine("NUMBER MUST BE BETWEEN 1 AND 16 !!!!!"); }
                 if (privateA == 42) { EasterEgg(); }
                 Console.WriteLine("Alice enter your secret number \"a\" (1 to 16)-private key");
-                
+
                 privateA = ValidateReadNumber(Console.ReadLine());
                 errCount = true;
             } while (privateA < 0 || privateA > 17);
@@ -36,10 +36,10 @@ namespace Diffe_Hellman
             errCount = false;
             do
             {
-                if (errCount) { Console.WriteLine("NUMBER MUST BE BETWEEN 1 AND 16 !!!!!");  }
+                if (errCount) { Console.WriteLine("NUMBER MUST BE BETWEEN 1 AND 16 !!!!!"); }
                 Console.WriteLine("Bob enter your secret number \"b\" (1 to 16)-private key");
-                privateB= ValidateReadNumber(Console.ReadLine());
-                errCount=true;
+                privateB = ValidateReadNumber(Console.ReadLine());
+                errCount = true;
             } while (privateB < 0 || privateB > 17);
 
             Console.WriteLine("\nGenerating public key. Public prime is {0}. Public Grupa is {1}.\n", primeNumPub, grupaNumPub);
@@ -47,13 +47,13 @@ namespace Diffe_Hellman
             publicB = NumeratePublicKey(primeNumPub, grupaNumPub, privateB);
 
             Console.WriteLine("\nExchange of public keys");
-            Console.WriteLine("Alice get public key B = {0},Bob get public key A = {1}",publicB,publicA);
-            
+            Console.WriteLine("Alice get public key B = {0},Bob get public key A = {1}", publicB, publicA);
+
             Console.WriteLine("\nGenerating secrets");
             secretA = NumerateSsecret(primeNumPub, publicB, privateA);
             secretB = NumerateSsecret(primeNumPub, publicA, privateB);
-            Console.WriteLine("Secret of Alice {0} and secret Bob {1}",secretA,secretB);
-            
+            Console.WriteLine("Secret of Alice {0} and secret Bob {1}", secretA, secretB);
+
 
             Console.WriteLine("\nFor end of program press any key");
             Console.ReadKey();
@@ -103,17 +103,10 @@ namespace Diffe_Hellman
         {
             Console.Clear();
             Console.WriteLine("Alice welcome in wonderland, follow white rabbit to hole");
-            Console.WriteLine(" /\`\ /\ \
-          `-\ ///`-'
-            /. .\
-            \ Y /
-            /'-'\
-           | \_/ |
-          /\  Y  /\
-         (  `-'-`  )
-      jgs / /---\ \
-         (_/     \_)")
-
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("    \\\n  __()\no(_-|_ ");
+            Console.ReadKey();
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.Clear();
         }
 
